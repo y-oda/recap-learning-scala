@@ -59,4 +59,25 @@ class FizzBuzz {
     ).fold(0)((x,z) => x + z)
     println(answer)
   }
-}
+
+  //doFizzBuzz6(1,100)
+  def doFizzBuzz6(start: Int,end: Int):Unit = {
+    def fizzbuzz(x : Int) = {
+      x match {
+          case x if x % 15 == 0 => println("FizzBuzz")
+          case x if x % 5 == 0 => println("Buzz")
+          case x if x % 3 == 0 => println("Fizz")
+          case _ => println(x.toString)
+        }
+    }
+
+    fizzbuzz(start)
+    start match {
+      case start if start != end => doFizzBuzz6(start+1,end)
+      case _ => Nil
+    }
+  }
+
+
+
+  }
