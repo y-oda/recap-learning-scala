@@ -71,13 +71,12 @@ class FizzBuzz {
         }
     }
 
-    fizzbuzz(start)
     start match {
-      case start if start != end => doFizzBuzz6(start+1,end)
+      case start if start <= end => {
+        fizzbuzz(start)
+        doFizzBuzz6(start+1,end)
+      }
       case _ => Nil
     }
   }
-
-
-
-  }
+}
