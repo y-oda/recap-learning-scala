@@ -66,7 +66,14 @@ class NNP10 {
     }
 
     def flatten(nested: List[Any]): List[Any] = {
-      ???
+      def loop(list: List[Any],acc: List[Any]):List[Any]= {
+        list match {
+          case Nil => acc
+          case head :: tail if head.isInstanceOf[List[Any]] => loop(head.asInstanceOf[List[Any]], loop(tail, acc))
+          case head :: tail => head :: loop(tail, acc)
+        }
+      }
+      loop(nested,List())
     }
 
     def compress(list: List[Symbol]): List[Symbol] = {
