@@ -110,7 +110,7 @@ class NNP10 {
     }
 
     def encode(list: List[Symbol]): List[(Int, Symbol)] = {
-//      @tailrec
+      @tailrec
       def loop(rest: List[Symbol], now: (Int,Symbol), acc: List[(Int, Symbol)]):List[(Int,Symbol)] = {
         rest match {
           case Nil => now::acc
