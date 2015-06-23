@@ -90,10 +90,10 @@ class NNP10 {
           case head::Nil if head.equals(acc.head) => acc
           case head::Nil => head::acc
           case head::tail if tail.last.equals(acc.head) => loop(rest.init,acc)
-          case rest => loop(rest.init,rest.last::acc)
+          case _ => loop(rest.init,rest.last::acc)
         }
       }
-      loop(list,List())
+      loop(list,Nil)
     }
 
     def pack(list: List[Symbol]): List[List[Symbol]] = {
@@ -110,7 +110,7 @@ class NNP10 {
     }
 
     def encode(list: List[Symbol]): List[(Int, Symbol)] = {
-      @tailrec
+//      @tailrec
       def loop(rest: List[Symbol], now: (Int,Symbol), acc: List[(Int, Symbol)]):List[(Int,Symbol)] = {
         rest match {
           case Nil => now::acc
@@ -119,7 +119,7 @@ class NNP10 {
           case head::tail => loop(tail,(1,head),now::acc)
         }
       }
-      loop(list,(0,'a),Nil).reverse
+      loop(list.tail,(1,list.head),Nil).reverse
     }
 
 }
