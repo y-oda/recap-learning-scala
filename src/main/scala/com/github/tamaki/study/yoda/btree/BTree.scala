@@ -1,5 +1,7 @@
 package com.github.tamaki.study.yoda.btree
 
+import scala.collection.immutable.Stream.Empty
+
 /**
  * Created by yohei.oda on 2015/06/25.
  */
@@ -9,7 +11,27 @@ case class Branch(left:Node, value: Int, right: Node) extends Node
 
 case class Leaf(value:Int) extends Node
 
+object BTree {
+
+  def apply(list:List[Int]):BTree={
+    def loop(lst:List[Int]):Node = {
+      lst match {
+        case _ if lst.size % 2 == 0 => throw new IllegalArgumentException
+        case _ if lst.size == 1 => Leaf(lst(0))
+        case _ => {
+          val mid = lst.size / 2
+          val left = lst.take(mid)
+          val right = lst.drop(mid+1)
+            Branch(loop(left), lst(mid), loop(right))
+        }
+      }
+    }
+    BTree(loop(list))
+  }
+}
+
 case class BTree(node: Node) {
+
   def size:Int = {
     node match {
       case Branch(left,value,right) => BTree(left).size + 1 + BTree(right).size
@@ -38,9 +60,9 @@ case class BTree(node: Node) {
     }
   }
 
-  def avg:Int = {
+  def avg:Double = {
     node match {
-      case Branch(left,value,right) => (BTree(left).sum + value + BTree(right).sum) / BTree(node).size
+      case Branch(left,value,right) => (BTree(left).sum + value + BTree(right).sum).toDouble / BTree(node).size
       case Leaf(value) =>  value
     }
   }
@@ -56,4 +78,5 @@ case class BTree(node: Node) {
         else {BTree(left).find(param)}
     }
   }
+
 }
