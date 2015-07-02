@@ -1,7 +1,5 @@
 package com.github.tamaki.study.yoda.btree
 
-import scala.collection.immutable.Stream.Empty
-
 /**
  * Created by yohei.oda on 2015/06/25.
  */
@@ -16,8 +14,9 @@ object BTree {
   def apply(list:List[Int]):BTree={
     def loop(lst:List[Int]):Node = {
       lst match {
-        case _ if lst.size % 2 == 0 => throw new IllegalArgumentException
-        case _ if lst.size == 1 => Leaf(lst(0))
+        case Nil  => throw new IllegalArgumentException
+        case _ if lst.size % 2 == 0  => throw new IllegalArgumentException
+        case x::Nil => Leaf(x)
         case _ => {
           val mid = lst.size / 2
           val left = lst.take(mid)
